@@ -1,0 +1,37 @@
+curl -L --location-trusted -k https://192.168.11.111:4443/login?using-cookies=true -u "ansible:password" -c cookiefile -v
+curl -k https://192.168.11.111:4443/vdc/users -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq^C
+curl -k https://192.168.11.111:4443/vdc/users -b cookiefile -v | xmllint --format -^C
+
+
+curl -k https://192.168.11.111:4443/vdc/users -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+==============================
+
+curl -X GET -k https://portal.ecstestdrive.com/object/users -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+curl -X POST -k https://portal.ecstestdrive.com/object/users/deactivate.json -H "Content-Type: application/json" -H "Accept:application/json" --data '{"user": "ansibleuser1"}' -b cookiefile -v | jq
+
+
+ANZ Bank CCA and ISCC
+Login:
+--------
+curl -L --location-trusted -k https://portal.ecstestdrive.com/login?using-cookies=true -u "131887216500386603-admin:Mzc1ZjhjYTE5YzgwMDQ3NWRkNmMwMDA4NjZkODI5NzM=" -c cookiefile -v
+
+CCA
+-------
+curl -k https://portal.ecstestdrive.com/vdc/nodes -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+---> please note: you can get the whole federation info from one VDC using ?scope
+curl -k https://portal.ecstestdrive.com/license -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+curl -k https://portal.ecstestdrive.com/vdc/snmp/config -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+curl -k https://portal.ecstestdrive.com/vdc/callhome/esrs -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+
+ISCC
+-------
+curl -k https://portal.ecstestdrive.com/vdc/users -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+curl -k https://portal.ecstestdrive.com/vdc/events -H "Content-Type: application/json" -H "Accept:application/json" -b cookiefile -v | jq
+
+PUAM:
+--------
+For this there is a dataheadsvr.log in each node which will capture the PUT’s and GET for all access keys in all the buckets.  Use rsyslog to stream the dataheadsvr.log out of ECS and into a log aggregator like Splunk or ElasticSearch.  There is no API to get this information.
+
+
+
+
